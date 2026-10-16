@@ -54,8 +54,11 @@ album name, artist, and optional MusicBrainz ID:
    (`releasegroup:"Album" AND artist:"Artist"`).
 3. Return the **front cover** from CAA in 250 / 500 / 1200 px plus full resolution.
 
-Outbound HTTP is restricted to `musicbrainz.org` and `coverartarchive.org`
-(see `manifest.json`). Navidrome caches agent results.
+Outbound HTTP is restricted to `musicbrainz.org`, `coverartarchive.org`,
+`archive.org`, and its subdomains (see `manifest.json`). CAA image requests may
+redirect to an Internet Archive mirror such as `ia600604.us.archive.org`;
+Navidrome re-checks the allowed-host list at each redirect. Navidrome caches agent
+results.
 
 ## Verify it's working
 
@@ -132,8 +135,9 @@ Agents = "artist-nfo-metadata,apple-music,deezer,coverartarchive,spotify,lastfm"
 
 - MusicBrainz rate-limits to ~1 req/sec; the plugin sends a proper
   `User-Agent`. Navidrome's cache keeps live usage well within limits.
-- CAA image URLs redirect to `archive.org`; Navidrome follows these when
-  fetching artwork.
+- CAA image URLs may redirect through `archive.org` to a mirror subdomain.
+  The manifest allows `archive.org` and `*.archive.org` so Navidrome can follow
+  these redirects.
 - Plugin ID (and agent name) is **`coverartarchive`** — derived from the
   `.ndp` filename, not the manifest display name.
 
