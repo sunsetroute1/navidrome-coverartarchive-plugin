@@ -9,7 +9,9 @@
       "reason": "Look up releases on MusicBrainz and fetch album cover art from the Cover Art Archive",
       "requiredHosts": [
         "musicbrainz.org",
-        "coverartarchive.org"
+        "coverartarchive.org",
+        "archive.org",
+        "*.archive.org"
       ]
     }
   }
